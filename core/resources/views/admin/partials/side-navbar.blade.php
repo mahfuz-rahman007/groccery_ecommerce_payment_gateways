@@ -294,19 +294,19 @@ $lang_code = $currentLang->code;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link @if (request()->path() == 'admin/product/all/orders') active @endif">
+                            <a href="{{ route('admin.all.product.orders') }}" class="nav-link @if (request()->path() == 'admin/product/all/orders') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ __('All Order') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link @if (request()->path() == 'admin/product/pending/orders') active @endif">
+                            <a href="{{ route('admin.pending.product.orders') }}" class="nav-link @if (request()->path() == 'admin/product/pending/orders') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ __('Pending Order') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href=""
+                            <a href="{{ route('admin.processing.product.orders') }}"
                                 class="nav-link
                           @if (request()->path() == 'admin/product/processing/orders') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
@@ -314,7 +314,7 @@ $lang_code = $currentLang->code;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href=""
+                            <a href="{{ route('admin.completed.product.orders') }}"
                                 class="nav-link
                           @if (request()->path() == 'admin/product/completed/orders') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
@@ -322,7 +322,7 @@ $lang_code = $currentLang->code;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href=""
+                            <a href="{{ route('admin.rejected.product.orders') }}"
                                 class="nav-link
                       @if (request()->path() == 'admin/product/rejected/orders') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
