@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'setlang'], function(){
+Route::group(['middleware' => 'setlang'], function () {
     Route::get('/', 'Front\FrontController@index')->name('front.index');
     Route::get('/changelang/{lang}', 'Front\FrontController@changeLang')->name('changeLang');
 
@@ -33,6 +33,9 @@ Route::group(['middleware' => 'setlang'], function(){
 
     // paypal
     Route::post('/product/paypal/submit', 'Payment\Product\PaypalController@store')->name('product.paypal.submit');
+    Route::get('/product/order/paypal/cancel', 'Payment\Product\PaypalController@paycancel')->name('product.payment.cancel');
+    Route::get('/product/paypal/return', 'Payment\Product\PaypalController@payreturn')->name('product.payment.return');
+    Route::get('/product/paypal/notify', 'Payment\Product\PaypalController@notify')->name('product.payment.notify');
     // stripe
     Route::post('/product/stripe/submit', 'Payment\Product\StripeController@store')->name('product.stripe.submit');
     // paytm
@@ -43,7 +46,7 @@ Route::group(['middleware' => 'setlang'], function(){
     Route::post('/paystack/submit', 'Payment\Product\PaystackController@store')->name('product.paystack.submit');
 
     // user routes
-    Route::group(['prefix' => 'user'], function(){
+    Route::group(['prefix' => 'user'], function () {
 
         Route::get('/login', 'User\LoginController@login')->name('user.login');
         Route::post('/login/submit', 'User\LoginController@loginSubmit')->name('user.login.submit');
@@ -66,20 +69,16 @@ Route::group(['middleware' => 'setlang'], function(){
         // Route::get('/product-order/{id}', 'User\UserController@product_order_details')->name('user.product.orderDetails');
 
     });
-
-
 });
 
 
-Route::group(['prefix' => 'admin', 'middleware'=> 'guest:admin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
 
     Route::get('/', 'Admin\LoginController@login')->name('admin.login');
     Route::post('/login', 'Admin\LoginController@authenticate')->name('admin.auth');
-
-
 });
 
-Route::group(['prefix' => 'admin', 'middleware'=> 'auth:admin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
     Route::get('/logout', 'Admin\LoginController@logout')->name('admin.logout');
     Route::get('/dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
@@ -148,6 +147,20 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth:admin'], function(){
     Route::get('/product/edit/{id}/', 'Admin\ProductController@edit')->name('admin.product.edit');
     Route::post('/product/update/{id}/', 'Admin\ProductController@update')->name('admin.product.update');
 
+
+    // Product Order Routes
+    Route::get('/product/all/orders', 'Admin\ProductOrderController@all')->name('admin.all.product.orders');
+    Route::get('/product/pending/orders', 'Admin\ProductOrderController@pending')->name('admin.pending.product.orders');
+    Route::get('/product/processing/orders', 'Admin\ProductOrderController@processing')->name('admin.processing.product.orders');
+    Route::get('/product/completed/orders', 'Admin\ProductOrderController@completed')->name('admin.completed.product.orders');
+    Route::get('/product/rejected/orders', 'Admin\ProductOrderController@rejected')->name('admin.rejected.product.orders');
+    Route::post('/product/orders/status', 'Admin\ProductOrderController@status')->name('admin.product.orders.status');
+    Route::post('/product/orders/payment/status', 'Admin\ProductOrderController@payment_status')->name('admin.product.payment.status');
+    Route::get('/product/orders/detais/{id}', 'Admin\ProductOrderController@details')->name('admin.product.details');
+    Route::post('/product/order/delete', 'Admin\ProductOrderController@orderDelete')->name('admin.product.order.delete');
+    Route::post('/product/order/bulk-delete', 'Admin\ProductOrderController@bulkOrderDelete')->name('admin.product.order.bulk.delete');
+
+
     // Slider Routes
     Route::get('/slider', 'Admin\SliderController@slider')->name('admin.slider');
     Route::get('/slider/add', 'Admin\SliderController@sliderAdd')->name('admin.sliderAdd');
@@ -170,6 +183,4 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth:admin'], function(){
     // Admin Footer Logo Text Routes
     Route::get('/footer', 'Admin\FooterController@index')->name('admin.footer.index');
     Route::post('/footer/update/{id}', 'Admin\FooterController@update')->name('admin.footer.update');
-
-
 });

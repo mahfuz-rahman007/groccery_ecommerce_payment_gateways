@@ -237,23 +237,29 @@ $lang_code = $currentLang->code;
                 <li
                     class="nav-item has-treeview
                   @if (request()->path() == 'admin/product') menu-open
+                  @elseif(request()->path() == 'admin/product-category') menu-open
+                  @elseif(request()->path() == 'admin/product-category/add')menu-open
                   @elseif(request()->path() == 'admin/product/add') menu-open
                   @elseif(request()->path() == 'admin/product/all/orders') menu-open
                   @elseif(request()->path() == 'admin/product/pending/orders') menu-open
                   @elseif(request()->path() == 'admin/product/processing/orders') menu-open
                   @elseif(request()->path() == 'admin/product/completed/orders') menu-open
                   @elseif(request()->path() == 'admin/product/rejected/orders') menu-open
+                  @elseif(request()->is('admin/product-category/edit/*')) menu-open
                   @elseif(request()->is('admin/product/edit/*')) menu-open
                   @elseif(request()->is('admin/product/orders/detais/*')) menu-open @endif">
                     <a href="#"
                         class="nav-link
                       @if (request()->path() == 'admin/product') active
+                      @elseif (request()->path() == 'admin/product-category') active
+                      @elseif(request()->path() == 'admin/product-category/add') active
                       @elseif(request()->path() == 'admin/product/add') active
                       @elseif(request()->path() == 'admin/product/all/orders') active
                       @elseif(request()->path() == 'admin/product/pending/orders') active
                       @elseif(request()->path() == 'admin/product/processing/orders') active
                       @elseif(request()->path() == 'admin/product/completed/orders') active
                       @elseif(request()->path() == 'admin/product/rejected/orders') active
+                      @elseif(request()->is('admin/product-category/edit/*')) active
                       @elseif(request()->is('admin/product/edit/*')) active
                       @elseif(request()->is('admin/product/orders/detais/*')) active @endif">
                         <i class="nav-icon fas fa-shopping-bag"></i>
